@@ -1,0 +1,17 @@
+{
+  "name": "jquery-ajaxresponse",
+  "version": "0.9.0",
+  "description": "Specify manual responses to jQuery ajax requests for testing",
+  "keywords": "jQuery,jQuery-ajaxresponse",
+  "bugs": "https://github.com/cimaron/jquery-ajaxresponse/issues",
+  "author": "Cimaron Shanahan",
+  "license": "MIT License",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.8.5",
+    "gulp-concat": "^2.2.0",
+    "gulp-jshint": "^1.6.4",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^0.3.1"
+  }
+}

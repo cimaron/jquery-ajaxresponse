@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>jQuery-ajaxResponse Test</title>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+
+	<script src="../build/jquery.ajaxresponse.js"></script>
+	
+<script>
+	
+$().ready(function() {
+
+	$.ajaxResponse('start');
+
+	//Simple example
+	$.ajaxResponse('enqueue', function(response, args) {
+		response.status(200, "OK");
+		response.body("Hello world!");
+		response.close();
+	});
+
+	//Simple fail
+	$.ajaxResponse('enqueue', function(response, args) {
+		response.status(404, "File not found");
+		response.close();
+	});
+
+	$.ajax({url: 'test.php'}).done(function() {
+		console.log('Should be 200:', arguments);
+	});
+
+	$.ajax({url: 'test.php'}).fail(function(response) {
+		console.log('Should be 404:', response);
+	});
+
+
+
+	//More complicated, respond to all based on request
+	$.ajaxResponse('onSend', function(response, args) {
+		console.log('waiting 5s');
+		//Simulate a 5s response wait
+		response.wait(5000, function() {
+			console.log('sending response');
+			var filename = args.url;
+			response.status(200, "OK");
+			response.body("Requested " + filename);
+			response.close();		
+		});
+	});
+
+	$.ajax({url: 'test.php'}).done(function() {
+		console.log('Should be 200:', arguments);
+	}).fail(function() { debugger; });
+
+	$.ajaxResponse('stop');
+	$.ajax({url: 'index.html'}).done(function(response) {
+		console.log('Should be normal ajax call:', response);
+	});
+
+});	
+	
+	
+</script>
+</head>
+<body>
+Check console.log.
+</body>
+</html>
+
